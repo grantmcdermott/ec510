@@ -1,0 +1,381 @@
+\documentclass[12]{article}
+%\input{/home/grant/Dropbox/LaTeX/preamble} %% Rather use self-contained preamble below
+
+%% LAYOUT AND TITLES
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[margin=1.1in]{geometry}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+\usepackage{titling}
+\newcommand{\subtitle}[1]{%
+	\posttitle{%
+		\par\end{center}
+	\begin{center}\large#1\end{center}
+	\vskip0.5em}%
+}
+%% Change title format to be more compact
+%\usepackage{titling}
+%\setlength{\droptitle}{-2em}
+%  \title{Syllabus}
+%  \pretitle{\vspace{\droptitle}\centering\huge}
+%  \posttitle{\par}
+%  \author{Grant R. McDermott}
+%  \preauthor{\centering\large\emph}
+%  \postauthor{\par}
+%  \predate{\centering\large\emph}
+%  \postdate{\par}
+%  \date{}
+
+%% FONTS
+\usepackage[normalem]{ulem} %% For strikeout font: \sout()
+\usepackage{lmodern}
+\usepackage{amssymb, amsmath}
+\usepackage{fontspec}
+% % See: https://tex.stackexchange.com/a/50593
+\setmainfont[]{Fira Sans}
+\setsansfont[]{Fira Sans}
+\setmonofont[]{Fira Mono}
+% \setmonofont[Mapping=tex-text]{inconsolata}	
+\defaultfontfeatures{
+    Path = /usr/share/texmf-dist/fonts/opentype/public/fontawesome/ }
+\usepackage{fontawesome} % Ditto
+
+%% MISC
+\usepackage[colorlinks = true,
+linkcolor = black,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = black]{hyperref}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+
+\begin{document}
+
+\title{Big data in economics (EC 410/510)}
+\subtitle{\textsc{Spring 2022 syllabus}\vspace{-2ex}}
+\author{Grant R. McDermott\\ Dept. of Economics, University of Oregon}
+%\date{}  % Toggle commenting to test
+\date{\vspace{-5ex}}
+	
+\maketitle
+\section*{Summary}
+
+\begin{tabular}{ll|l} 
+	\textbf{When:} & \multicolumn{2}{l}{Mon \& Wed, 10:00--11:20} \\
+	\textbf{Where:} & \multicolumn{2}{l}{140 TYKE} \\
+	\textbf{Web:} & \multicolumn{2}{l}{\href{https://github.com/orgs/uo-510-2022s}{https://github.com/orgs/uo-510-2022s} (quarter)} \\
+	& \multicolumn{2}{l}{\href{https://github.com/uo-ec607}{https://github.com/uo-ec607} (lectures)} \\
+	\textbf{Who:} & Grant McDermott (instructor) & Boyoon Chang (GE) \\
+	& \, \faMortarBoard \, Assistant Professor of Economics & \, \faMortarBoard \, Doctoral student in economics \\
+	& \, \faEnvelopeO \, \href{mailto:grantmcd@uoregon.edu}{grantmcd@uoregon.edu} & \, \faEnvelopeO \, \href{mailto:bchang@uoregon.edu}{bchang@uoregon.edu} \\
+	& \, \faHourglassHalf \, By appointment & \, \faHourglassHalf \, By appointment \\
+\end{tabular} 
+
+\section*{Course description}
+
+Data are getting bigger. As data get big (i.e. they cannot fit in your
+computer's memory) the conventional empirical tools of the applied economist's
+toolbox often become inefficient or even ineffective. 
+% Situations with big data abound in environmental, resource, and energy
+% economics --- e.g., climate data, satellite imagery, high-resolution billing 
+% data, and many transportation datasets.  
+In this course, we will introduce, discuss, and implement some of the
+key tools that have been developed to overcome these challenges. We will also
+see how these ``big data'' tools be profitably repurposed for ``medium data''
+settings too.  We will start by laying the foundations for effective data
+science work, covering topics like version control and the shell (i.e. command
+line). From there, we will learn how to handle data and become efficient
+programmers in \textit{R} (our primary computational environment). While our
+immediate focus will be on making the most of the local resources at our
+disposal, the skills that we master here will serve us well once we scale up to
+dedicated big data environments in the final section of the course. By the end
+of the quarter, you will have connected to cloud-based based services and
+high-performance computing clusters, queried petabyte-sized databases, and run
+distributed code across a network of computers. More importantly, you will have
+a better understanding of how computers work, what tools are at your disposal
+for tackling big data problems, and how to meaningfully integrate them into your
+everyday workflow.
+
+\section*{Practical matters}
+
+\subsection*{Class rules}
+
+\textbf{Important:} We will be using a ``flipped'' classroom environment for
+this course. In other words, the bulk of the lecture content for the course will
+be delivered \textit{asynchronously} via pre-recorded videos. My expectation is
+that you will watch and work through the videos on your own before we meet for
+class. Having you watch the videos beforehand yields several benefits in a
+course like this. It will save me (and you) from having to troubleshoot coding
+problems live during lectures, it will allow you to rewatch material that you
+didn't quite get upon first viewing, and it will generally free up time for
+discussion in an otherwise very coding-centric course. We'll reserve actual
+class time for two things: 1) troubleshooting and follow-up from the lecture 
+videos, and 2) student presentations. Please note that you should attend the 
+in-class sessions even though you will have watched the videos beforehand.
+
+(Some lectures will still be ``live'' in the regular sense. Our first lecture
+will definitely be one of these. I'll let you know ahead of time if any others
+fall into this category too.)
+
+\subsection*{Software requirements}
+
+All of the software requirements for this course are free and open-source.
+Please aim to have everything installed by the start of our first lecture. I
+will be available for installation troubleshooting during the first week of the
+quarter. If you want a detailed tutorial on how to achieve a perfect working
+setup, I can think of no finer guide than Jenny Bryan \textit{et al}.'s
+\url{http://happygitwithr.com/} (see esp. chapters 4 -- 11).
+
+\vspace{-0.25cm}
+\subsubsection*{\textit{R} and RStudio}
+
+We will mainly be using the statistical programming language \textbf{\textit{R}}
+(download \href{https://www.r-project.org/}{here}).\footnote{Mac users may
+consider installing R through Homebrew. That's fine, but please use \texttt{`brew
+install --cask r`} to do so (exactly as written here)... unless you're using one 
+of the new M1-compatible machines. In the latter case, please speak to me about
+installation options first.} 
+Please make sure that you install the \textbf{RStudio IDE} too (download
+\href{https://www.rstudio.com/products/rstudio/download/preview/}{here}).
+
+\vspace{-0.25cm}
+\subsubsection*{Git and GitHub Classroom}
+
+We will also make extensive use of the \textbf{Git} version control system
+(follow the OS-specific installation instructions
+\href{http://happygitwithr.com/install-git.html}{here}). Once you have installed
+Git, please create an account on \textbf{GitHub}
+(\href{https://github.com/join}{here}) and register for an education discount to
+get unlimited private repos
+(\href{https://education.github.com/discount_requests/new}{here}).\footnote{GitHub
+\href{https://blog.github.com/changelog/2019-01-08-pricing-changes/}{offers}
+unlimited free private repos for everyone. However, you are limited to three
+collaborators per private repo, so the education discount still makes sense.}
+Now is probably a good time to tell you that I am going to run the course
+through \href{https://classroom.github.com/}{GitHub Classroom}. You will receive
+an email invitation to the course repo with instructions in due time, but
+suffice it to say that this is how we'll submit assignments, provide feedback,
+receive grades, etc.
+
+\vspace{-0.25cm}
+\subsubsection*{Other}
+
+You are ready to start this course once you have installed R, RStudio, and Git
+(as well as created an account on GitHub). The last thing I want you to do for
+now is make sure that your system is configured to handle some additional
+
+
+\begin{itemize}
+	\item \textbf{Linux:} You should be good to go.  
+	\item \textbf{Mac:} Install	the \href{https://brew.sh/}{Homebrew} package
+	manager. I also recommend some additional software, depending on whether
+	you're using one of the new M1-compatible machines or not:
+	\begin{itemize}
+		\item Non-M1 (older): Install the
+		\href{https://github.com/rmacoslib/r-macos-rtools#installer-package-for-macos-r-toolchain-}{\emph{R}
+		toolchain for MacOS}. This will automatically take care of several steps
+		like installing Xcode, etc.
+		\item M1 (newer): While the new M1 chips offer incredible performance,
+		unfortunately they require several finicky steps to play nicely with
+		some of the other tools that we'll be using. Please install Xcode by
+		opening your Terminal and running \texttt{`xcode-select --install`}.
+		There are several more steps that you'll need to take, but we'll save
+		that for
+		class or office hours.\footnote{\href{https://pat-s.me/transitioning-from-x86-to-arm64-on-macos-experiences-of-an-r-user/}{Here}
+		is a thorough discussion if you want to go through them by yourself.}
+	\end{itemize}
+	\item \textbf{Windows:} Install \href{https://cran.r-project.org/bin/windows/Rtools/}{Rtools}. While its not essential, I also recommend that you install the \href{https://chocolatey.org/}{Chocolatey} package manager for Windows.
+\end{itemize}
+
+I will provide instructions for any further software requirements as the need
+arises; i.e. when we get to the relevant lecture. On that note, the lectures
+have all been posted ahead of time on the
+\href{https://github.com/uo-ec607}{course website}. Each lecture lists all of
+the \textit{R} packages and external libraries (if relevant) required for a
+particular class. I'll try to remind you, but my expectation is that you will
+look at these requirements and ensure that you have them installed
+\textit{before} we start class. 
+
+\subsection*{Textbook and other readings}
+
+There's no set textbook for this course (Ed Rubin and I are
+\href{https://grantmcdermott.com/ds4e}{working} on one.). The lecture notes are
+very detailed and are thus ``self-contained''. However, I've drawn inspiration
+from various sources; a few of which are listed below. You don't \textit{need}
+to buy or read any of these (excellent) books to complete the course. But I can
+eagerly recommend leafing through at least one or two of them. Each of these
+books is freely available online if you can't afford a hard copy:
+%
+\begin{itemize}
+	\item ``\href{http://r4ds.had.co.nz}{\textbf{\textit{R} for Data Science}}'' (Garrett Grolemund and Hadley Wickham)\footnote{FWIW, Jake VanderPlas's ``\href{https://jakevdp.github.io/PythonDataScienceHandbook/}{\textbf{Python Data Science Handbook}}'' is excellent option for anyone looking for a Python equivalent.}
+	\item ``\href{http://socviz.co/}{\textbf{Data Visualization: A practical introduction}}'' (Kieran Healy)
+    \item ``\href{https://adv-r.hadley.nz/}{\textbf{Advanced \textit{R}}}'' (Hadley Wickham)
+    \item ``\href{https://geocompr.robinlovelace.net/}{\textbf{Geocomputation with \textit{R}}}'' (Robin Lovelace, Jakub Nowosad and Jannes Muenchow)
+%    \item ``\href{https://keen-swartz-3146c4.netlify.app/}{\textbf{Spatial Data Science}}'' (Edzer Pebesma and Roger Bivand)
+    \item ``\href{https://statlearning.com}{\textbf{An Introduction to Statistical Learning}}'' (Gareth James, Daniela Witten, Trevor Hastie, and Robert Tibshirani)
+    \item Etc.
+\end{itemize}
+
+%\newpage
+\section*{Evaluation and grading}
+
+\subsection*{Grade determination}
+
+%Grades will be determined according to a mix of regular assignments and
+%in-class presentations. You will also be expected to evaluate each others' code
+%and provide constructive feedback for improvements. There will be no final
+%exam, although you may be asked to give a final presentation on a topic TBD.
+
+Grades will be determined as follows:
+
+\begin{table}[!h] \centering 
+	%\caption{\textsc{grades} }
+	\label{tab:grades} 
+	\begin{tabularx}{0.9\textwidth}{Xr|Xr} 
+		\toprule
+		\multicolumn{2}{c}{EC 410}	& \multicolumn{2}{c}{EC 510}  \\
+		\midrule
+		1 $\times$ Short presentation  			&	 5\%	& 1 $\times$ Short presentation			& 5\% \\
+		1 $\times$ Long presentation  			&	 10\%	& 1 $\times$ Long presentation			& 10\% \\
+		1 $\times$ Intro HW assignment			&	 10\%	& 1 $\times$ Intro HW assignment		& 5\% \\
+		3 $\times$ HW assignments (25\% each)	&	 75\%	& 3 $\times$ HW assignments (20\% each)	& 60\% \\
+												& 			& OSS contribution						& 20\% \\
+		\bottomrule
+		% \multicolumn{4}{l}{\footnotesize Note: A class participation bonus worth an additional 2.5\% will be awarded at my discretion.} \\
+	\end{tabularx} 
+\end{table} 
+
+You will only be graded on the items that are listed above. No additional work
+or submissions will be considered. There is no final exam or project for this
+course. Any changes or specific requirements will be made clear as we proceed
+through the course. In the meantime, here are some additional details.
+
+\vspace{-0.25cm}
+\subsubsection*{Homework assignments}
+
+With the exception of the first (short) introductory assignment, your homework
+assignments are to be completed in \textbf{teams of two}. As we'll see, these
+assignments will all be distributed and graded through GitHub Classroom. Links
+will be provided and I'll cover the details in class. Please note that late
+submissions will not be graded. \vspace{-0.25cm}
+
+\subsubsection*{Presentations}
+
+Each person in the class will be expected to give two presentations.  Both types
+are first-come, first-served.
+\begin{itemize}
+	\item ``Short''. A 2--5 minute, show-and-tell talk on a ``base'' R function.
+	I have a list of suggested options, but really this is just for you to
+	explore and share some fun things about the language. Base R has many hidden
+	(underrated) gems that will make you a more productive and capable
+	programmer in the long-run, even if you	stick with user-written packages
+	most of the time.  \item ``Long''. A 10 minute talk accompanied by slides
+	(which you'll share with the rest of the class). You'll choose from a list
+	of prescribed presentation topics---corresponding to the lecture topic at
+	hand---that I shall provide in due course.
+\end{itemize}
+In general, your presentations will be graded on how clearly you communicate 
+the topic at hand. The primary question that I'll be asking myself when grading 
+is: ``Could other students easily understand the concept(s) based on your
+talk?''
+
+\vspace{-0.25cm}
+\subsubsection*{OSS contribution (EC 510 only)}
+
+You are going to contribute to open-source software (OSS) in some way, shape, or
+form. This could be by identifying and correcting bugs in a package that you
+use. Or, it could be by contributing material (e.g. documentation) to an
+open-source project. I particularly want to encourage you to contribute to the
+Library of Statistical Techniques (\url{https://lost-stats.github.io/}). There's
+clearly quite a bit of leeway here and I'll need to sign off on whatever you
+propose. Similarly, depending on the scope and size, you may need to make
+several different contributions to fulfill the requirement.
+
+\subsection*{Honesty and academic integrity}
+
+Students caught cheating or plagiarizing will automatically be assigned a zero
+grade. Please acquaint yourself with the Student Conduct Code at
+\url{http://studentlife.uoregon.edu}. More important for this class, individual 
+team member will be expected to pull their weight for your paired
+assignments.\footnote{You'll see that we can actually track individual member
+contributions, although I really hope it doesn't come to that.}
+
+\subsection*{Accessibility}
+
+If you have a documented disability and anticipate needing accommodations in
+this course, please make arrangements with me during the first week of the term.
+Please also request that the \href{https://aec.uoregon.edu/}{Accessible
+Education Center} send me a letter verifying your disability. Students with
+infants or young children that need ongoing care should similarly come and see
+to me. We'll have to take it on a case-by-case basis, but I'll do my utmost to
+accommodate you.
+
+\newpage
+\section*{Tentative lecture outline}
+\label{sec:outline}
+
+\textit{Note: We only have 80 minutes allocated for each lecture. I expect that
+several individual topics will run over two or more lecture slots. Please bear
+that in mind as you look over this tentative outline.}
+
+\subsection*{Foundations}
+
+\textit{Expected no. of lectures slots: 5 (6)}
+
+\begin{itemize}
+	\item Introduction: Motivation, software installation, and data visualization
+	\item Version control with Git(Hub)
+	\item Learning to love the shell
+	\item \textit{R} language basics (\textit{optional})
+\end{itemize}
+
+\subsection*{Data wrangling, I/O, and acquisition}
+
+\textit{Expected no. of lectures slots: 5}
+
+\begin{itemize}
+	\item Data cleaning and wrangling: (1) Tidyverse
+	\item Data cleaning and wrangling: (2) data.table
+	\item Big data I/O
+	\item Webscraping: (1) Server-side and CSS
+	\item Webscraping: (2) Client-side and APIs
+\end{itemize}
+
+
+\subsection*{Programming}
+
+\textit{Expected no. of lectures slots: 4}
+
+\begin{itemize}
+	\item Functions in \textit{R}: (1) Introductory concepts
+	\item Functions in \textit{R}: (2) Advanced concepts
+	\item Parallel programming
+\end{itemize}
+
+\subsection*{Cloud resources and distributed computation}
+
+\textit{Expected no. of lectures slots: 6}
+
+\begin{itemize}
+	\item Docker
+	\item Cloud computation (Google Compute Engine)
+	\item High performance computing (UO Talapas cluster) 
+	\item Databases
+	\item Spark
+\end{itemize}
+
+
+\subsection*{Other potential topics (time permitting)}
+
+\begin{itemize}
+	\item Regression tools for big data problems
+	\item Spatial analysis
+	\item Networks
+	\item Deep learning
+	\item Automation and workflow
+	\item Rcpp (i.e. integrating C++ with R)
+\end{itemize}
+
+\end{document}
